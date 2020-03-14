@@ -6,7 +6,7 @@
 # Follow-up: Can you do this in O(N) time and constant space?
 
 # this one really got me, i could see a way of doing this, i tried but was getting a lot of problems so i give up
-# and looked for a better way online. I could think in a way of doing it, but fail to code it. But i could think
+# and looked for a better way online. I could think in a way of doing it, but fail to code it. But i couldnt think
 # in a linear time and constant space. So i went to google
 
 # longer and more comprehensive solution, going step by step
