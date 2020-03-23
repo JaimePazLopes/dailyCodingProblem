@@ -57,21 +57,27 @@ class FileSystem:
 
     # create all the directory/file tree
     def initializeDirectories(self, directoriesString):
+        # split on \n to get all folders/files
         path = directoriesString.split("\n")
+
         def createFileSystem(pathStrings, root):
             for i in range(len(pathStrings)):
                 path = pathStrings[i]
+                # if it is a folder
                 if "\t" not in path[1:] and "." not in path:
                     newDirectory = Directory(path[1:])
                     root.sub.append(newDirectory)
                     subFolder = list()
+                    # get the only the folders inside the actual folder
                     for j in range(i+1, len(pathStrings)):
                         subpath = pathStrings[j]
                         if "\t" not in subpath[1:]:
                             break
                         if "\t" in subpath[1:]:
                             subFolder.append(subpath[1:])
+                    # and create them
                     createFileSystem(subFolder, newDirectory)
+                # if it is a file
                 if "\t" not in path[1:] and "." in path:
                     fileName = path[1:].split(".")
                     newFile = File(fileName[0], fileName[1])
@@ -79,9 +85,32 @@ class FileSystem:
 
         createFileSystem(path[1:], self.root)
 
-    # didnt had the time to finish it today
+    # I get the whole path, not only count
     def longestAbsolutePath(self, root=None):
-        pass
+        if root is None:
+            root = self.root
+        path = root.name
+        longestPath = ""
+        longestFile = ""
+        # i look for all the files inside the directory
+        for file in root.files:
+            # try to get the longest file name, since they all are in the same folder
+            if len(file.name) + len(file.extension) + 1 > len(longestFile):
+                longestFile = file.name + "." + file.extension
+        else:
+            # take the longest file name and add to the path, check if it is the longest path
+            subfile = path + "/" + longestFile
+            if len(subfile) > len(longestPath) and len(longestFile) >= 1:
+                longestPath = subfile
+        # go on all directories
+        for dir in root.sub:
+            subpath = root.name
+            # get the longest path inside this directory
+            subpath += "/" + self.longestAbsolutePath(dir)
+            # see if this folder path is the longest path
+            if len(subpath) > len(longestPath):
+                longestPath = subpath
+        return longestPath
 
 fileSystem = FileSystem()
 fileSystem.initializeDirectories("dir\n\tsubdir1\n\t\tf.ext\n\tsubdir2\n\t\tfile.ext")
@@ -95,4 +124,7 @@ print(longFile, len(longFile))
 
 # cool problem, but today was a really different day, didnt had the time to sit and do it from beginning to end,
 # had to stop multiple times and that made my progress much slower, wil try to finish it tomorrow before getting the
-# next problem
+# next problem.
+# Today I finished the longestAbsolutePath function, it took me today around 20 30 minutes, separating file and folder
+# make it harder to get the path. I cant estimate with precision how long i work on it yesterday, maybe around 2 hours,
+# but less than 1 hour was actual work
