@@ -1,2 +1,2 @@
 # daily Coding Problem
-My solutions for the dailycodingproblem.com
+My solutions and explanations with comments for the dailycodingproblem.com
