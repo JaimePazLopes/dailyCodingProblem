@@ -1,3 +1,4 @@
+# Problem #65 [Easy]
 # Given a N by M matrix of numbers, print out the matrix in a clockwise spiral.
 #
 # For example, given the following matrix:
